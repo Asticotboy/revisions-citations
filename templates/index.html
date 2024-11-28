@@ -1,0 +1,50 @@
+<!-- Template pour flask pour la page de révision de citation -->
+ <!-- 
+Contient une zone centrale où l'utilisateur peut voir la citation actuel à trou
+et une zone de texte pour entrer la réponse
+Un bouton pour valider la réponse
+ -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revision</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Revision</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Complète la citation suivante ?</h2>
+            <p>{{ citation }}</p>
+            <p>{{mots_a_trouver}}</p>
+        </section>
+        <section>
+            <form action="{{ url_for('index') }}" method="post">
+                <label for="reponse">Réponse :</label>
+                <input type="text" id="reponse" name="reponse" autocomplete="off" required>
+                <button type="submit">Valider</button>
+            </form>
+        </section>
+        <!-- Écrire à droite "Bien joué" en vert si success=True et "Dommage" en rouge si False -->
+        <section>
+            {% if success %}
+                <p class="success"><span style="color: green;">Bien joué !</span></p>
+            {% elif success == False %}
+                <p class="error"><span style="color: red;">Dommage !</span></p>
+                <p>Tu devais trouver {{mots_devais_trouver}}</p>
+            <!-- Si None, ne rien afficher -->
+            {% endif %}
+    </main>
+
+
+    <script>var input = document.getElementById('reponse');
+        input.focus();
+        input.select();</script>
+
+
+</body>
